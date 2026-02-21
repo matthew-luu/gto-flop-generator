@@ -1,32 +1,53 @@
-**GTO Flop Generator — Setup
+# GTO Flop Generator — Setup
 
-Prerequisites
-- Python 3.8+ (Windows: install from python.org)
-- Git (optional)
+## Prerequisites
 
-Quick start
-1. Open a terminal in the repository root.
-2. Create and activate a virtual environment:
+- Python 3.8+ installed and available in `PATH`.
+
+No external Python dependencies are required for the current scripts.
+
+## Quick start (Windows PowerShell)
+
+From the repository root:
+
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate
-```
-3. Install dependencies if a `requirements.txt` exists:
-```powershell
-pip install -r requirements.txt
-```
-4. Run the generator (examples):
-```powershell
-python src\python\generate_flops.py
-python src\python\generate_distinct_flops.py
+python .\src\python\generate_flops.py
+python .\src\python\generate_distinct_flops.py
 ```
 
-Project layout (important paths)
-- `src/python/` — core Python scripts used to generate and validate `.gto` files.
-- `templates/` — `.gto` template files used as input for generation.
-- `generated/` — generated `.gto` outputs (usually ignored by Git).
-- `tools/ahk/` — optional helper AHK scripts used locally for testing.
+## Output location behavior
 
-Notes
-- If you plan to publish the package, consider converting `src/python` into a package (`__init__.py`) and adding `pyproject.toml`.
-- Add any external Python libraries used to `requirements.txt` so CI and contributors can install them easily.
+The generator scripts write to the current working directory.
+
+- Running from repo root creates `flops.txt` and `flops_1755.txt` in repo root.
+- To place outputs under `generated/`, run from that folder:
+
+```powershell
+Push-Location .\generated
+python ..\src\python\generate_flops.py
+python ..\src\python\generate_distinct_flops.py
+Pop-Location
+```
+
+## Validate `.gto` files
+
+Run the validator in the folder you want to scan:
+
+```powershell
+Push-Location .\generated
+python ..\src\python\gto_file_validate.py
+Pop-Location
+```
+
+`gto_file_validate.py` checks:
+
+- exact duplicate filenames,
+- logical duplicate board names (ignoring numeric prefix),
+- count against `EXPECTED_COUNT` (default `1755`).
+
+To scan another folder path, edit `FOLDER` in `src/python/gto_file_validate.py`.
+
+## Related docs
+
+- Methodology: `docs/methodology.md`
+- Overview and repo layout: `README.md`
