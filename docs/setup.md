@@ -13,6 +13,7 @@ From the repository root:
 ```powershell
 python .\src\python\generate_flops.py
 python .\src\python\generate_distinct_flops.py
+python .\src\python\generate_study_folders.py
 ```
 
 ## Output location behavior
@@ -46,6 +47,26 @@ Pop-Location
 - count against `EXPECTED_COUNT` (default `1755`).
 
 To scan another folder path, edit `FOLDER` in `src/python/gto_file_validate.py`.
+
+## Generate standardized study folders
+
+Use `generate_study_folders.py` to create a consistent solver study tree:
+
+`{root}/{POT_TYPE}/{POSITION}/{STACK_DEPTH}/{TREE_CONFIG}/{FLOP_FAMILY}/{TEXTURE_BUCKET}`
+
+Defaults:
+
+- Root path: `./solved`
+- Adds `.gitkeep` to each leaf folder
+- Does not delete or overwrite existing files
+
+Examples:
+
+```powershell
+python .\src\python\generate_study_folders.py
+python .\src\python\generate_study_folders.py --root .\generated\study-tree
+python .\src\python\generate_study_folders.py --root .\generated\study-tree --dry-run
+```
 
 ## Generate `.gto` files with AutoHotkey (AHK)
 
