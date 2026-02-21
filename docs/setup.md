@@ -47,6 +47,39 @@ Pop-Location
 
 To scan another folder path, edit `FOLDER` in `src/python/gto_file_validate.py`.
 
+## Generate `.gto` files with AutoHotkey (AHK)
+
+Use `tools/ahk/test_file_create.ahk` to automate GTO+ and save one `.gto` file per flop.
+
+### Prerequisites
+
+- AutoHotkey v2 installed.
+- GTO+ running (`GTO.exe`) and visible on screen.
+- A flop list file (for example `generated/flops_1755.txt`).
+- A template file (for example `templates/BTN_vs_BB_SRP_Template.gto`).
+
+### Configure the script
+
+Open `tools/ahk/test_file_create.ahk` and set these variables near the top:
+
+- `templatePath` → full path to your template `.gto` file.
+- `filePath` → full path to your flop list (`3` cards per line, e.g. `Ah Kd 7c`).
+- `outputDir` → folder where generated `.gto` files should be saved.
+
+The click coordinates are tuned to one UI layout. If your GTO+ window layout/scale differs, adjust coordinate values in the script before running.
+
+### Run
+
+From repo root in PowerShell:
+
+```powershell
+& "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe" ".\tools\ahk\test_file_create.ahk"
+```
+
+### Stop safely
+
+While the script is running, press `Ctrl+Alt+S` to stop it.
+
 ## Related docs
 
 - Methodology: `docs/methodology.md`
