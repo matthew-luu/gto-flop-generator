@@ -88,16 +88,15 @@ def ensure_gitkeep(folder: Path, dry_run: bool) -> bool:
     """
     gitkeep_path = folder / ".gitkeep"
 
-    if gitkeep_path.exists():
-        return False
-
     if dry_run:
         print(f"[DRY-RUN] touch {gitkeep_path}")
         return False
 
-    # Safe: does not overwrite existing files (we checked exists()).
-    gitkeep_path.touch(exist_ok=False)
-    return True
+    try:
+        gitkeep_path.touch(exist_ok=False)
+        return True
+    except FileExistsError:
+        return False
 
 
 def create_folders_and_gitkeep(paths: Iterable[Path], dry_run: bool) -> tuple[int, int, int]:
