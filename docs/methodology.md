@@ -1,5 +1,4 @@
-**Methodology — GTO Flop Generator
-
+**Methodology — GTO Flop Generator**
 Purpose
 - Provide a clear, reproducible process for generating `.gto` flop files from templates and scripts.
 
